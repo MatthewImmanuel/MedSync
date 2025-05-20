@@ -1,4 +1,31 @@
-const db = require('../database/pg.database');
+const db = require('./../database/pg.database');
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+
+exports.register = async (user) => {
+    try {
+        user.password = await bcrypt.hash(user.password, saltRounds);
+        const result = await db.query('INSERT INTO users (email, password, name) VALUES ($1, $2, $3) RETURNING *', [user.email, user.password, user.name]);
+        return result.rows[0];
+    } catch (error) {
+        console.error('Error executing query', error);
+    }
+}
+
+exports.login = async (user) => {
+    try {
+        const result = await db.query('SELECT * FROM users WHERE email = $1', [user.email]);
+        if (result) {
+            const match = await bcrypt.compare(user.password, result.rows[0].password);
+            if (!match) {
+                return null;
+            }
+        }
+        return result.rows[0];
+    } catch (error) {
+        console.error('Error executing query', error);
+    }
+}
 
 exports.getAllUsers = async () => {
     try {
