@@ -23,7 +23,7 @@ Pasien dapat mengunggah data kesehatan, melihat riwayat lengkap, dan mengizinkan
 | Nama                          | NPM           |
 | ----------------------------- | ------------- |
 | Isyana Trevia Pohaci          | 2306250592             |
-| Salim                         | —             |
+| Salim                         | 2306204604             |
 | Matthew Immanuel Sitorus      | 2306221024    |
 | Jeremy Wijanarko Mulyono      | 2306267132    |
 
