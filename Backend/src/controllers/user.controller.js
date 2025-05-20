@@ -1,4 +1,47 @@
 const userRepository = require('./../repositories/user.repository');
+const baseResponse = require('./../utils/baseResponse.util');
+
+exports.register = async (req, res) => {
+    let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!regex.test(req.query.email)) {
+        return baseResponse(res, false, 400, 'Invalid email', null);
+    }
+    
+    if (!req.query.email) {
+        return baseResponse(res, false, 400, 'Missing email', null);
+    }
+    if (!req.query.password) {
+        return baseResponse(res, false, 400, 'Missing password', null);
+    }
+    if (!req.query.name) {
+        return baseResponse(res, false, 400, 'Missing name', null);
+    }
+
+    try {
+        const user = await userRepository.register({ email: req.query.email, password: req.query.password, name: req.query.name });
+        if (!user) {
+            return baseResponse(res, false, 404, 'Email already used', null);
+        }
+        baseResponse(res, true, 201, 'User created', user);
+    } catch (error) {
+        baseResponse(res, false, 500, error.message || 'Server error', error);
+    }
+}
+
+exports.login = async (req, res) => {
+    if (!req.query.email || !req.query.password) {
+        return baseResponse(res, false, 400, 'Missing email or password');
+    }
+    try {
+        const user = await userRepository.login({ email: req.query.email, password: req.query.password });
+        if (!user) {
+            return baseResponse(res, false, 404, 'Invalid email or password', null);
+        }
+        baseResponse(res, true, 200, 'Login success', user);
+    } catch (error) {
+        baseResponse(res, false, 500, error.message || 'Server error', error);
+    }
+}
 
 exports.getAllUsers = async (req, res) => {
     try {
