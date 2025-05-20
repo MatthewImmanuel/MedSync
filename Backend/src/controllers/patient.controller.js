@@ -12,7 +12,7 @@ exports.getAllPatients = async (req, res) => {
 }
 
 exports.createPatient = async (req, res) => {
-    if (!req.body.name || !req.body.age || !req.body.address) {
+    if (!req.body.user_id, !req.body.name || !req.body.age || !req.body.address) {
         return baseResponse(res, false, 400, 'Missing patient data', null);
     }
     
@@ -36,6 +36,9 @@ exports.getPatientById = async (req, res) => {
 
 exports.updatePatient = async (req, res) => {
     if (!req.body.id) return baseResponse(res, false, 400, 'Missing patient id');
+    if (!req.body.user_id, !req.body.name || !req.body.age || !req.body.address) {
+        return baseResponse(res, false, 400, 'Missing patient data', null);
+    }
     try {
         const patient = await patientRepository.updatePatient(req.body);
         if (!patient) return baseResponse(res, false, 404, 'Patient not found', null);

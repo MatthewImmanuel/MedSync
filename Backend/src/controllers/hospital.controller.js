@@ -1,4 +1,5 @@
 const hospitalRepository = require('./../repositories/hospital.repository');
+const baseResponse = require('./../utils/baseResponse.util');
 
 exports.getAllHospitals = async (req, res) => {
     try {

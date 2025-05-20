@@ -1,4 +1,5 @@
 const doctorRepository = require('./../repositories/doctor.repository');
+const baseResponse = require('./../utils/baseResponse.util');
 
 exports.getAllDoctors = async (req, res) => {
     try {

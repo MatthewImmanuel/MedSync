@@ -1,4 +1,5 @@
 const appointmentRepository = require('./../repositories/appointment.repository');
+const baseResponse = require('./../utils/baseResponse.util');
 
 exports.getAllAppointments = async (req, res) => {
     try {
