@@ -1,5 +1,5 @@
 const hospitalRepository = require('./../repositories/hospital.repository');
-const baseResponse = require('./../utils/baseResponse.util');
+const baseResponse = require('../utils/baseResponse.util');
 
 exports.getAllHospitals = async (req, res) => {
     try {
@@ -12,13 +12,6 @@ exports.getAllHospitals = async (req, res) => {
 }
 
 exports.createHospital = async (req, res) => {
-    if (!req.body.name) {
-        return baseResponse(res, false, 400, 'Missing name', null);
-    }
-    if (!req.body.address) {
-        return baseResponse(res, false, 400, 'Missing address', null);
-    }
-
     try {
         const hospital = await hospitalRepository.createHospital(req.body);
         baseResponse(res, true, 201, 'Hospital created', hospital);
@@ -28,10 +21,6 @@ exports.createHospital = async (req, res) => {
 }
 
 exports.getHospitalById = async (req, res) => {
-    if (!req.params.id) {
-        return baseResponse(res, false, 400, 'Missing id');
-    }
-
     try {
         const hospital = await hospitalRepository.getHospitalById(req.params.id);
         if (!hospital) return baseResponse(res, false, 404, 'Hospital not found', null);
@@ -42,16 +31,7 @@ exports.getHospitalById = async (req, res) => {
 }
 
 exports.updateHospital = async (req, res) => {
-    if (!req.body.id) {
-        return baseResponse(res, false, 400, 'Missing id');
-    }
-    if (!req.body.name) {
-        return baseResponse(res, false, 400, 'Missing name', null);
-    }
-    if (!req.body.address) {
-        return baseResponse(res, false, 400, 'Missing address', null);
-    }
-
+    if (!req.body.id) return baseResponse(res, false, 400, 'Missing hospital id');
     try {
         const hospital = await hospitalRepository.updateHospital(req.body);
         if (!hospital) return baseResponse(res, false, 404, 'Hospital not found', null);
@@ -62,10 +42,6 @@ exports.updateHospital = async (req, res) => {
 }
 
 exports.deleteHospital = async (req, res) => {
-    if (!req.params.id) {
-        return baseResponse(res, false, 400, 'Missing id');
-    }
-
     try {
         const hospital = await hospitalRepository.deleteHospital(req.params.id);
         if (!hospital) return baseResponse(res, false, 404, 'Hospital not found', null);

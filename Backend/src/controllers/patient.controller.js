@@ -12,17 +12,8 @@ exports.getAllPatients = async (req, res) => {
 }
 
 exports.createPatient = async (req, res) => {
-    if (!req.body.user_id) {
-        return baseResponse(res, false, 400, 'Missing user id', null);
-    }
-    if (!req.body.name) {
-        return baseResponse(res, false, 400, 'Missing name', null);
-    }
-    if (!req.body.age) {
-        return baseResponse(res, false, 400, 'Missing age', null);
-    }
-    if (!req.body.address) {
-        return baseResponse(res, false, 400, 'Missing address', null);
+    if (!req.body.name || !req.body.age || !req.body.address) {
+        return baseResponse(res, false, 400, 'Missing patient data', null);
     }
     
     try {
@@ -34,10 +25,6 @@ exports.createPatient = async (req, res) => {
 }
 
 exports.getPatientById = async (req, res) => {
-    if (!req.params.id) {
-        return baseResponse(res, false, 400, 'Missing id');
-    }
-
     try {
         const patient = await patientRepository.getPatientById(req.params.id);
         if (!patient) return baseResponse(res, false, 404, 'Patient not found', null);
@@ -48,22 +35,7 @@ exports.getPatientById = async (req, res) => {
 }
 
 exports.updatePatient = async (req, res) => {
-    if (!req.body.id) {
-        return baseResponse(res, false, 400, 'Missing id');
-    }
-    if (!req.body.user_id) {
-        return baseResponse(res, false, 400, 'Missing user id', null);
-    }
-    if (!req.body.name) {
-        return baseResponse(res, false, 400, 'Missing name', null);
-    }
-    if (!req.body.age) {
-        return baseResponse(res, false, 400, 'Missing age', null);
-    }
-    if (!req.body.address) {
-        return baseResponse(res, false, 400, 'Missing address', null);
-    }
-
+    if (!req.body.id) return baseResponse(res, false, 400, 'Missing patient id');
     try {
         const patient = await patientRepository.updatePatient(req.body);
         if (!patient) return baseResponse(res, false, 404, 'Patient not found', null);
@@ -74,10 +46,6 @@ exports.updatePatient = async (req, res) => {
 }
 
 exports.deletePatient = async (req, res) => {
-    if (!req.params.id) {
-        return baseResponse(res, false, 400, 'Missing id');
-    }
-
     try {
         const patient = await patientRepository.deletePatient(req.params.id);
         if (!patient) return baseResponse(res, false, 404, 'Patient not found', null);

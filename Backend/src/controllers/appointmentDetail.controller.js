@@ -12,13 +12,9 @@ exports.getAllAppointmentDetails = async (req, res) => {
 };
 
 exports.createAppointmentDetail = async (req, res) => {
-    if (!req.body.appointment_id) {
-        return baseResponse(res, false, 400, 'Missing appointment id', null);
+    if (!req.body.appointment_id || !req.body.detail) {
+        return baseResponse(res, false, 400, 'Missing appointment_id or detail', null);
     }
-    if (!req.body.detail) {
-        return baseResponse(res, false, 400, 'Missing detail', null);
-    }
-
     try {
         const detail = await appointmentDetailRepository.createAppointmentDetail(req.body);
         baseResponse(res, true, 201, 'Appointment detail created', detail);
@@ -28,10 +24,6 @@ exports.createAppointmentDetail = async (req, res) => {
 };
 
 exports.getAppointmentDetailById = async (req, res) => {
-    if (!req.params.id) {
-        return baseResponse(res, false, 400, 'Missing id');
-    }
-
     try {
         const detail = await appointmentDetailRepository.getAppointmentDetailById(req.params.id);
         if (!detail) return baseResponse(res, false, 404, 'Appointment detail not found', null);
@@ -42,16 +34,6 @@ exports.getAppointmentDetailById = async (req, res) => {
 };
 
 exports.updateAppointmentDetail = async (req, res) => {
-    if (!req.body.id) {
-        return baseResponse(res, false, 400, 'Missing id');
-    }
-    if (!req.body.appointment_id) {
-        return baseResponse(res, false, 400, 'Missing appointment id', null);
-    }
-    if (!req.body.detail) {
-        return baseResponse(res, false, 400, 'Missing detail', null);
-    }
-    
     if (!req.body.id) return baseResponse(res, false, 400, 'Missing appointment detail id', null);
     try {
         const detail = await appointmentDetailRepository.updateAppointmentDetail(req.body);
@@ -63,10 +45,6 @@ exports.updateAppointmentDetail = async (req, res) => {
 };
 
 exports.deleteAppointmentDetail = async (req, res) => {
-    if (!req.params.id) {
-        return baseResponse(res, false, 400, 'Missing id');
-    }
-    
     try {
         const detail = await appointmentDetailRepository.deleteAppointmentDetail(req.params.id);
         if (!detail) return baseResponse(res, false, 404, 'Appointment detail not found', null);

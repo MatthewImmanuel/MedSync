@@ -1,5 +1,5 @@
 const doctorRepository = require('./../repositories/doctor.repository');
-const baseResponse = require('./../utils/baseResponse.util');
+const baseResponse = require('../utils/baseResponse.util');
 
 exports.getAllDoctors = async (req, res) => {
     try {
@@ -12,19 +12,6 @@ exports.getAllDoctors = async (req, res) => {
 }
 
 exports.createDoctor = async (req, res) => {
-    if (!req.body.user_id) {
-        return baseResponse(res, false, 400, 'Missing user id', null);
-    }
-    if (!req.body.name) {
-        return baseResponse(res, false, 400, 'Missing name', null);
-    }
-    if (!req.body.specialization) {
-        return baseResponse(res, false, 400, 'Missing specialization', null);
-    }
-    if (!req.body.hospital_id) {
-        return baseResponse(res, false, 400, 'Missing hospital id', null);
-    }
-
     try {
         const doctor = await doctorRepository.createDoctor(req.body);
         baseResponse(res, true, 201, 'Doctor created', doctor);
@@ -34,10 +21,6 @@ exports.createDoctor = async (req, res) => {
 }
 
 exports.getDoctorById = async (req, res) => {
-    if (!req.params.id) {
-        return baseResponse(res, false, 400, 'Missing id');
-    }
-    
     try {
         const doctor = await doctorRepository.getDoctorById(req.params.id);
         if (!doctor) return baseResponse(res, false, 404, 'Doctor not found', null);
@@ -48,22 +31,7 @@ exports.getDoctorById = async (req, res) => {
 }
 
 exports.updateDoctor = async (req, res) => {
-    if (!req.body.id) {
-        return baseResponse(res, false, 400, 'Missing id');
-    }
-    if (!req.body.user_id) {
-        return baseResponse(res, false, 400, 'Missing user id', null);
-    }
-    if (!req.body.name) {
-        return baseResponse(res, false, 400, 'Missing name', null);
-    }
-    if (!req.body.specialization) {
-        return baseResponse(res, false, 400, 'Missing specialization', null);
-    }
-    if (!req.body.hospital_id) {
-        return baseResponse(res, false, 400, 'Missing hospital id', null);
-    }
-
+    if (!req.body.id) return baseResponse(res, false, 400, 'Missing doctor id');
     try {
         const doctor = await doctorRepository.updateDoctor(req.body);
         if (!doctor) return baseResponse(res, false, 404, 'Doctor not found', null);
@@ -74,10 +42,6 @@ exports.updateDoctor = async (req, res) => {
 }
 
 exports.deleteDoctor = async (req, res) => {
-    if (!req.params.id) {
-        return baseResponse(res, false, 400, 'Missing id');
-    }
-    
     try {
         const doctor = await doctorRepository.deleteDoctor(req.params.id);
         if (!doctor) return baseResponse(res, false, 404, 'Doctor not found', null);
