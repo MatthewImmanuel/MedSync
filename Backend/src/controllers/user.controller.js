@@ -29,9 +29,13 @@ exports.register = async (req, res) => {
 }
 
 exports.login = async (req, res) => {
-    if (!req.query.email || !req.query.password) {
-        return baseResponse(res, false, 400, 'Missing email or password');
+    if (!req.query.email) {
+        return baseResponse(res, false, 400, 'Missing email');
     }
+    if (!req.query.password) {
+        return baseResponse(res, false, 400, 'Missing password');
+    }
+
     try {
         const user = await userRepository.login({ email: req.query.email, password: req.query.password });
         if (!user) {
@@ -54,6 +58,16 @@ exports.getAllUsers = async (req, res) => {
 }
 
 exports.createUser = async (req, res) => {
+    if (!req.body.name) {
+        return baseResponse(res, false, 400, 'Missing name');
+    }
+    if (!req.body.email) {
+        return baseResponse(res, false, 400, 'Missing email');
+    }
+    if (!req.body.password) {
+        return baseResponse(res, false, 400, 'Missing password');
+    }
+
     try {
         const user = await userRepository.createUser(req.body);
         baseResponse(res, true, 201, 'User created', user);
@@ -63,6 +77,10 @@ exports.createUser = async (req, res) => {
 }
 
 exports.getUserById = async (req, res) => {
+    if (!req.params.id) {
+        return baseResponse(res, false, 400, 'Missing id');
+    }
+
     try {
         const user = await userRepository.getUserById(req.params.id);
         if (!user) return baseResponse(res, false, 404, 'User not found', null);
@@ -73,6 +91,19 @@ exports.getUserById = async (req, res) => {
 }
 
 exports.updateUser = async (req, res) => {
+    if (!req.body.id) {
+        return baseResponse(res, false, 400, 'Missing id');
+    }
+    if (!req.body.name) {
+        return baseResponse(res, false, 400, 'Missing name');
+    }
+    if (!req.body.email) {
+        return baseResponse(res, false, 400, 'Missing email');
+    }
+    if (!req.body.password) {
+        return baseResponse(res, false, 400, 'Missing password');
+    }
+
     if (!req.body.id) return baseResponse(res, false, 400, 'Missing user id');
     try {
         const user = await userRepository.updateUser(req.body);
@@ -84,6 +115,10 @@ exports.updateUser = async (req, res) => {
 }
 
 exports.deleteUser = async (req, res) => {
+    if (!req.params.id) {
+        return baseResponse(res, false, 400, 'Missing id');
+    }
+    
     try {
         const user = await userRepository.deleteUser(req.params.id);
         if (!user) return baseResponse(res, false, 404, 'User not found', null);
