@@ -1,13 +1,22 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log("Login attempt:", { email, password });
-    // nanti panggil backend di sini
+    // Simulate login success
+    // Replace this with your backend call and check for success
+    if (email && password) {
+      // On successful login
+      navigate("/dashboard");
+    } else {
+      // Handle login error (optional)
+      alert("Invalid credentials");
+    }
   };
 
   return (

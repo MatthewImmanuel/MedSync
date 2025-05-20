@@ -3,6 +3,7 @@ import { Link } from "react-scroll";
 import Button from "../layouts/Button";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import Contact from "../models/Contact";
+import { href } from "react-router-dom";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
@@ -31,7 +32,7 @@ const Navbar = () => {
         <div className=" flex flex-row justify-between p-5 md:px-32 px-5 bg-backgroundColor shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
           <div className=" flex flex-row items-center cursor-pointer">
             <Link to="home" spy={true} smooth={true} duration={500}>
-              <h1 className=" text-2xl font-semibold">WellnessVista.</h1>
+              <h1 className=" text-2xl font-semibold">Medsync</h1>
             </Link>
           </div>
 
@@ -72,24 +73,21 @@ const Navbar = () => {
             >
               Doctors
             </Link>
-            <Link
-              to="blog"
-              spy={true}
-              smooth={true}
-              duration={500}
-              className=" hover:text-hoverColor transition-all cursor-pointer"
-            >
-              Blog
-            </Link>
           </nav>
 
-          <div className=" hidden lg:flex">
-            <button
-              className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out"
-              onClick={openForm}
+          <div className="hidden lg:flex flex-row gap-4">
+            <a
+              href="/login"
+              className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out flex items-center justify-center"
             >
-              Contact Us
-            </button>
+              Login
+            </a>
+            <a
+              href="/register"
+              className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out flex items-center justify-center"
+            >
+              Register
+            </a>
           </div>
 
           {showForm && <Contact closeForm={closeForm} />}
@@ -147,20 +145,24 @@ const Navbar = () => {
           >
             Doctors
           </Link>
-          <Link
-            to="blog"
-            spy={true}
-            smooth={true}
-            duration={500}
-            className=" hover:text-hoverColor transition-all cursor-pointer"
-            onClick={closeMenu}
-          >
-            Blog
-          </Link>
 
-          <div className=" lg:hidden">
-            <button
+          <div className=" lg:hidden flex flex-col gap-4 px-8">
+            <a
+              href="/login"
+              className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out mb-2"
+              onClick={closeMenu}
+            >
+              Login
+            </a>
+            <a
+              href="/register"
               className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out"
+              onClick={closeMenu}
+            >
+              Register
+            </a>
+            <button
+              className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-hoverColor transition duration-300 ease-in-out mt-2"
               onClick={openForm}
             >
               Contact Us
