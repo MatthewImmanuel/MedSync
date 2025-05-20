@@ -11,14 +11,19 @@ const userRoutes = require('./src/routes/user.route');
 const doctorRoutes = require('./src/routes/doctor.route');
 const hospitalRoutes = require('./src/routes/hospital.route');
 const appointmentRoutes = require('./src/routes/appointment.route');
+const appointmentDetailRoutes = require('./src/routes/appointmentDetail.route');
+
 
 app.use('/patients', patientRoutes);
 app.use('/users', userRoutes);
 app.use('/doctors', doctorRoutes);
 app.use('/hospitals', hospitalRoutes);
 app.use('/appointments', appointmentRoutes);
+app.use('/appointmentDetails', appointmentDetailRoutes);
 
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
