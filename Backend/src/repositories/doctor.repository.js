@@ -12,8 +12,8 @@ exports.getAllDoctors = async () => {
 exports.createDoctor = async (doctor) => {
     try {
         const result = await db.query(
-            'INSERT INTO doctors (user_id, specialization, hospital_id) VALUES ($1, $2, $3) RETURNING *',
-            [doctor.user_id, doctor.specialization, doctor.hospital_id]
+            'INSERT INTO doctors (user_id, name, specialization, hospital_id) VALUES ($1, $2, $3, $4) RETURNING *',
+            [doctor.user_id, doctor.name, doctor.specialization, doctor.hospital_id]
         );
         return result.rows[0];
     } catch (error) {
@@ -33,8 +33,8 @@ exports.getDoctorById = async (id) => {
 exports.updateDoctor = async (doctor) => {
     try {
         const result = await db.query(
-            'UPDATE doctors SET user_id = $1, specialization = $2, hospital_id = $3 WHERE id = $4 RETURNING *',
-            [doctor.user_id, doctor.specialization, doctor.hospital_id, doctor.id]
+            'UPDATE doctors SET user_id = $1, name = $2, specialization = $3, hospital_id = $4 WHERE id = $5 RETURNING *',
+            [doctor.user_id, doctor.name, doctor.specialization, doctor.hospital_id, doctor.id]
         );
         return result.rows[0];
     } catch (error) {

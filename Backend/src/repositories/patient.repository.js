@@ -12,8 +12,8 @@ exports.getAllPatients = async () => {
 exports.createPatient = async (patient) => {
     try {
         const result = await db.query(
-            'INSERT INTO patients (name, age, address) VALUES ($1, $2, $3) RETURNING *',
-            [patient.name, patient.age, patient.address]
+            'INSERT INTO patients (user_id, name, age, address) VALUES ($1, $2, $3, $4) RETURNING *',
+            [patient.user_id, patient.name, patient.age, patient.address]
         );
         return result.rows[0];
     } catch (error) {
@@ -33,8 +33,8 @@ exports.getPatientById = async (id) => {
 exports.updatePatient = async (patient) => {
     try {
         const result = await db.query(
-            'UPDATE patients SET name = $1, age = $2, address = $3 WHERE id = $4 RETURNING *',
-            [patient.name, patient.age, patient.address, patient.id]
+            'UPDATE patients SET user_id = $1, name = $2, age = $3, address = $4 WHERE id = $5 RETURNING *',
+            [patient.user_id, patient.name, patient.age, patient.address, patient.id]
         );
         return result.rows[0];
     } catch (error) {
