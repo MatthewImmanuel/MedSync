@@ -81,22 +81,21 @@ const Footer = () => {
           <h1 className=" font-medium text-xl pb-4 pt-5 md:pt-0">Contact Us</h1>
           <nav className=" flex flex-col gap-2">
             <Link to="/" spy={true} smooth={true} duration={500}>
-              123 Elm Street, Suite 456 Springfield, IL 62701 United States
+              Fakultas Teknik Universitas Indonesia
             </Link>
             <Link to="/" spy={true} smooth={true} duration={500}>
-              support@care.com
+              medsync@care.com
             </Link>
             <Link to="/" spy={true} smooth={true} duration={500}>
-              +123-456-7890
+              +62 0123 000 
             </Link>
           </nav>
         </div>
       </div>
       <div>
         <p className=" text-center py-4">
-          @copyright developed by
-          <span className=" text-hoverColor"> champion programmers</span> | All
-          rights reserved
+          
+          <span className=" text-hoverColor"> Sistem Basis Data</span> | Kelompok 5
         </p>
       </div>
     </div>

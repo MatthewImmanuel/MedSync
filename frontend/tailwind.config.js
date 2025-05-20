@@ -3,6 +3,8 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      transform: ['hover'],
+      scale: ['hover'],
       colors: {
         hoverColor: "#FFC000",
         brightColor: "#dd8036",

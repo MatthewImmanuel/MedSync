@@ -9,32 +9,32 @@ const Doctors = () => {
   const data = [
     {
       img: "/src/assets/img/doc1.jpg",
-      name: "Dr. Serena Mitchell",
+      name: "Dr. Agus",
       specialties: "Orthopedic Surgeon",
     },
     {
       img: "/src/assets/img/doc2.jpg",
-      name: "Dr. Julian Bennett",
+      name: "Dr. Yuli",
       specialties: "Cardiologist",
     },
     {
       img: "/src/assets/img/doc3.jpg",
-      name: "Dr. Camila Rodriguez",
+      name: "Dr. Adit",
       specialties: "Pediatrician",
     },
     {
       img: "/src/assets/img/doc4.jpg",
-      name: "Dr. Victor Nguyen",
+      name: "Dr. Ajeng",
       specialties: "Neurologist",
     },
     {
       img: "/src/assets/img/doc5.jpg",
-      name: "Dr. Ethan Carter",
+      name: "Dr. Juan",
       specialties: "Dermatologist",
     },
     {
       img: "/src/assets/img/doc6.jpg",
-      name: "Dr. Olivia Martinez",
+      name: "Dr. Joseph",
       specialties: "Ophthalmologist",
     },
   ];
@@ -86,8 +86,7 @@ const Doctors = () => {
             Our Doctors
           </h1>
           <p className=" mt-2 text-center lg:text-start">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus,
-            quidem.
+            Meet our professional and experienced healthcare specialists.
           </p>
         </div>
         <div className="flex gap-5 mt-4 lg:mt-0">
