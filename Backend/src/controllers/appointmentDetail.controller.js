@@ -12,12 +12,16 @@ exports.getAllAppointmentDetails = async (req, res) => {
 };
 
 exports.createAppointmentDetail = async (req, res) => {
-    if (!req.body.appointment_id || !req.body.detail) {
-        return baseResponse(res, false, 400, 'Missing appointment_id or detail', null);
+    if (!req.body.appointment_id) {
+        return baseResponse(res, false, 400, 'Missing appointment_id', null);
     }
+    const detail = req.body.detail !== undefined ? req.body.detail : "";
     try {
-        const detail = await appointmentDetailRepository.createAppointmentDetail(req.body);
-        baseResponse(res, true, 201, 'Appointment detail created', detail);
+        const detailObj = {
+            appointment_id: req.body.appointment_id,
+            detail: detail
+        };
+        const detailResult =     await appointmentDetailRepository.createAppointmentDetail(detailObj);
     } catch (error) {
         baseResponse(res, false, 500, error.message || 'Server error', error);
     }
@@ -26,6 +30,16 @@ exports.createAppointmentDetail = async (req, res) => {
 exports.getAppointmentDetailById = async (req, res) => {
     try {
         const detail = await appointmentDetailRepository.getAppointmentDetailById(req.params.id);
+        if (!detail) return baseResponse(res, false, 404, 'Appointment detail not found', null);
+        baseResponse(res, true, 200, 'Appointment detail found', detail);
+    } catch (error) {
+        baseResponse(res, false, 500, 'Error retrieving appointment detail', error);
+    }
+};
+
+exports.getAppointmentDetailByAppointmentId = async (req, res) => {
+    try {
+        const detail = await appointmentDetailRepository.getAppointmentDetailByAppointmentId(req.params.appointmentId);
         if (!detail) return baseResponse(res, false, 404, 'Appointment detail not found', null);
         baseResponse(res, true, 200, 'Appointment detail found', detail);
     } catch (error) {

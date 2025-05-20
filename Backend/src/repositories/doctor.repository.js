@@ -12,12 +12,21 @@ exports.getAllDoctors = async () => {
 exports.createDoctor = async (doctor) => {
     try {
         const result = await db.query(
-            'INSERT INTO doctors (user_id, name, specialization, hospital_id) VALUES ($1, $2, $3, $4) RETURNING *',
-            [doctor.user_id, doctor.name, doctor.specialization, doctor.hospital_id]
+            'INSERT INTO doctors (user_id, name, specialization, hospital_id, photo_url) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+            [doctor.user_id, doctor.name, doctor.specialization, doctor.hospital_id, doctor.photo_url || null]
         );
         return result.rows[0];
     } catch (error) {
         console.error('Error creating doctor', error);
+    }
+};
+
+exports.getDoctorByUserId = async (userId) => {
+    try {
+        const result = await db.query('SELECT * FROM doctors WHERE user_id = $1', [userId]);
+        return result.rows[0];
+    } catch (error) {
+        console.error('Error fetching doctor by user ID', error);
     }
 };
 
@@ -51,3 +60,4 @@ exports.deleteDoctor = async (id) => {
         console.error('Error deleting doctor', error);
     }
 };
+

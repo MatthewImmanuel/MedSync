@@ -3,22 +3,18 @@ const baseResponse = require('./../utils/baseResponse.util');
 
 exports.register = async (req, res) => {
     let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!regex.test(req.query.email)) {
-        return baseResponse(res, false, 400, 'Invalid email', null);
+    if (!req.body.email || !regex.test(req.body.email)) {
+        return baseResponse(res, false, 400, 'Invalid or missing email', null);
     }
-    
-    if (!req.query.email) {
-        return baseResponse(res, false, 400, 'Missing email', null);
-    }
-    if (!req.query.password) {
+    if (!req.body.password) {
         return baseResponse(res, false, 400, 'Missing password', null);
     }
-    if (!req.query.name) {
+    if (!req.body.name) {
         return baseResponse(res, false, 400, 'Missing name', null);
     }
 
     try {
-        const user = await userRepository.register({ email: req.query.email, password: req.query.password, name: req.query.name });
+        const user = await userRepository.register({ email: req.body.email, password: req.body.password, name: req.body.name });
         if (!user) {
             return baseResponse(res, false, 404, 'Email already used', null);
         }
@@ -29,11 +25,11 @@ exports.register = async (req, res) => {
 }
 
 exports.login = async (req, res) => {
-    if (!req.query.email || !req.query.password) {
+    if (!req.body.email || !req.body.password) {
         return baseResponse(res, false, 400, 'Missing email or password');
     }
     try {
-        const user = await userRepository.login({ email: req.query.email, password: req.query.password });
+        const user = await userRepository.login({ email: req.body.email, password: req.body.password });
         if (!user) {
             return baseResponse(res, false, 404, 'Invalid email or password', null);
         }
@@ -50,15 +46,6 @@ exports.getAllUsers = async (req, res) => {
         baseResponse(res, true, 200, 'Users found', users);
     } catch (error) {
         baseResponse(res, false, 500, 'Error retrieving users', error);
-    }
-}
-
-exports.createUser = async (req, res) => {
-    try {
-        const user = await userRepository.createUser(req.body);
-        baseResponse(res, true, 201, 'User created', user);
-    } catch (error) {
-        baseResponse(res, false, 500, error.message || 'Server error', error);
     }
 }
 

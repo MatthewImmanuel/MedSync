@@ -54,3 +54,14 @@ exports.deletePatient = async (req, res) => {
         baseResponse(res, false, 500, 'Error deleting patient', error);
     }
 }
+
+exports.getPatientByUserId = async (req, res) => {
+    try {
+        const patient = await patientRepository.getPatientByUserId(req.params.userId);
+        if (!patient) return baseResponse(res, false, 404, 'Patient not found', null);
+        baseResponse(res, true, 200, 'Patient found', patient);
+    } catch (error) {
+        baseResponse(res, false, 500, 'Error retrieving patient', error);
+    }
+};
+

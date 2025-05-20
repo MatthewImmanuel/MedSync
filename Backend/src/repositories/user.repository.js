@@ -36,17 +36,6 @@ exports.getAllUsers = async () => {
     }
 };
 
-exports.createUser = async (user) => {
-    try {
-        const result = await db.query(
-            'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
-            [user.name, user.email, user.password]
-        );
-        return result.rows[0];
-    } catch (error) {
-        console.error('Error creating user', error);
-    }
-};
 
 exports.getUserById = async (id) => {
     try {

@@ -51,3 +51,12 @@ exports.deletePatient = async (id) => {
         console.error('Error deleting patient', error);
     }
 };
+
+exports.getPatientByUserId = async (userId) => {
+    try {
+        const result = await db.query('SELECT * FROM patients WHERE user_id = $1', [userId]);
+        return result.rows[0];
+    } catch (error) {
+        console.error('Error fetching patient by user_id', error);
+    }
+};

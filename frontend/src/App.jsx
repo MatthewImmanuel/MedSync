@@ -6,7 +6,6 @@ import Footer from "./components/Footer";
 // Landing Page sections
 import Home from "./components/Home";
 import About from "./components/About";
-import Services from "./components/Services";
 import Doctors from "./components/Doctors";
 
 // Pages untuk MedSync
@@ -23,7 +22,6 @@ const LandingPage = () => (
     <main>
       <div id="home"><Home /></div>
       <div id="about"><About /></div>
-      <div id="services"><Services /></div>
       <div id="doctors"><Doctors /></div>
     </main>
     <Footer />
@@ -38,7 +36,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/patients" element={<PatientsList />} />
+        <Route path="/patientslist" element={<PatientsList />} />
         <Route path="/appointment" element={<Appointment />} />
         <Route path="/patients/:id" element={<PatientDetail />} />
       </Routes>

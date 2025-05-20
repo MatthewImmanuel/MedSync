@@ -13,11 +13,19 @@ exports.createAppointment = async (appointment) => {
     try {
         const result = await db.query(
             'INSERT INTO appointments (appointment_date, start_time, end_time, doctor_id, patient_id, hospital_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-            [appointment.appointment_date, appointment.start_time, appointment.end_time, appointment.doctor_id, appointment.patient_id, appointment.hospital_id]
+            [
+                appointment.appointment_date,
+                appointment.start_time,
+                appointment.end_time,
+                appointment.doctor_id,
+                appointment.patient_id,
+                appointment.hospital_id
+            ]
         );
         return result.rows[0];
     } catch (error) {
         console.error('Error creating appointment', error);
+        throw error;
     }
 };
 
@@ -51,3 +59,22 @@ exports.deleteAppointment = async (id) => {
         console.error('Error deleting appointment', error);
     }
 };
+
+exports.getAppointmentsByPatientId = async (patientId) => {
+    try {
+        const result = await db.query('SELECT * FROM appointments WHERE patient_id = $1', [patientId]);
+        return result.rows;
+    } catch (error) {
+        console.error('Error fetching appointments by patient_id', error);
+    }
+};
+
+exports.getAppointmentsByDoctorId = async (doctorId) => {
+    try {
+        const result = await db.query('SELECT * FROM appointments WHERE doctor_id = $1', [doctorId]);
+        return result.rows;
+    } catch (error) {
+        console.error('Error fetching appointments by doctor_id', error);
+    }
+}
+
