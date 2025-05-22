@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://med-sync-6o63.vercel.app/', 
+        target: 'http://localhost:3000', 
         changeOrigin: true,
       }
     },
